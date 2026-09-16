@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Малярні роботи | CarEra</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        /* --- Твої базові змінні та налаштування --- */
+        :root {
+            --tesla-red: #E82127;
+            --dark-red: #e32128;
+            --carera-blue: #1a6aff;
+            --carera-blue-hover: #0050e6;
+            --accent-yellow: #dca73a;
+            --white: #FFFFFF;
+            --bg-light: #f8f9fa;
+            --bg-dark: #111111;
+            --bg-footer: #0f1115;
+            --text-dark: #2e2e2e;
+            --text-gray: #7a7a7a;
+            --text-muted: #888888;
+            --border-color: #E2E3E3;
+            --black: #000000;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- Animations --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 {
+            transition-delay: 0.05s;
+        }
+
+        .delay-2 {
+            transition-delay: 0.1s;
+        }
+
+        .delay-3 {
+            transition-delay: 0.15s;
+        }
+
+        /* --- Header & Dropdown Menu --- */
+        header {
+            background-color: rgba(255, 255, 255, 0.98);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 12px;
+            transition: opacity 0.2s ease;
+        }
+
+        .logo-wrap:hover {
+            opacity: 0.85;
+        }
+
+        .logo-icon {
+            width: 24px;
+            height: 24px;
+            display: block;
+        }
+
+        .logo-text {
+            font-weight: 900;
+            font-size: 24px;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        /* Бургер кнопка */
+        .menu-toggle-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            transition: color 0.2s ease;
+        }
+
+        .menu-toggle-btn:hover {
+            color: var(--carera-blue);
+        }
+
+        .menu-toggle-btn svg {
+            width: 32px;
+            height: 32px;
+            fill: currentColor;
+        }
+
+        /* Випадаюче меню */
+        .dropdown-nav {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(15px);
+            background: var(--white);
+            padding: 20px 40px;
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            z-index: 999;
+        }
+
+        .dropdown-nav.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(25px);
+        }
+
+        .dropdown-nav ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .dropdown-nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .dropdown-nav a:hover {
+            color: var(--carera-blue);
+        }
+
+        .contact-phone {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 700;
+            font-size: 14px;
+            transition: color 0.2s ease;
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            background: var(--bg-light);
+            border-radius: 4px;
+        }
+
+        .contact-phone svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+            transition: fill 0.2s ease;
+        }
+
+        .contact-phone:hover {
+            background: var(--white);
+            border-color: var(--text-dark);
+            color: var(--carera-blue);
+        }
+
+        /* --- Внутрішня Hero секція послуги --- */
+        .service-hero {
+            position: relative;
+            background: #111 url('images/bg.jpg') center/cover no-repeat;
+            color: var(--white);
+            padding: 100px 0;
+            text-align: left;
+        }
+
+        .service-hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 1;
+        }
+
+        .service-hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-hero h1 {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 900;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        /* --- Контент Послуги --- */
+        .info-section {
+            padding: 80px 0 120px;
+        }
+
+        .info-content {
+            max-width: 900px;
+            margin: 0;
+        }
+
+        .info-content h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            border-left: 4px solid var(--carera-blue);
+            /* Акцент змінено на синій */
+            padding-left: 20px;
+        }
+
+        .info-content p {
+            font-size: 16px;
+            color: var(--text-gray);
+            margin-bottom: 20px;
+            text-align: left;
+            line-height: 1.8;
+        }
+
+        .diag-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .diag-list li {
+            padding: 16px 24px;
+            background: var(--bg-light);
+            margin-bottom: 12px;
+            border-radius: 8px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.2s ease;
+        }
+
+        .diag-list li:hover {
+            background: #eee;
+        }
+
+        .diag-list li::before {
+            content: "—";
+            color: var(--carera-blue);
+            /* Змінено на синій */
+            margin-right: 15px;
+            font-weight: 900;
+        }
+
+        .highlight-box {
+            background: var(--carera-blue);
+            /* Змінено на синій */
+            color: var(--white);
+            padding: 35px;
+            border-radius: 12px;
+            margin-top: 40px;
+        }
+
+        .highlight-box p {
+            color: var(--white);
+            margin-bottom: 0;
+            font-weight: 500;
+            text-align: left;
+        }
+
+        /* --- Contact Section --- */
+        .contact-section {
+            padding: 100px 0;
+            background: var(--bg-light);
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            background: var(--white);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            min-height: 560px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-info-block {
+            background: #2c6da5;
+            /* Синій колір форми з нового стилю */
+            color: var(--white);
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .contact-info-block h2 {
+            font-size: clamp(28px, 4vw, 38px);
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .contact-info-block p.subtitle {
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            opacity: 0.92;
+        }
+
+        .info-card {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .info-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .icon-box {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.16);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+
+        .icon-box svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--white);
+        }
+
+        .info-text h4 {
+            margin: 0 0 3px 0;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            opacity: 0.75;
+            font-weight: 600;
+        }
+
+        .info-text p,
+        .info-text a {
+            margin: 0;
+            font-size: 17px;
+            font-weight: 500;
+            color: var(--white);
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .info-text a:hover {
+            opacity: 0.85;
+            text-decoration: underline;
+        }
+
+        .form-box {
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--white);
+        }
+
+        .form-box h3 {
+            font-size: 26px;
+            margin-bottom: 30px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            color: var(--text-dark);
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-gray);
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 13px 16px;
+            background: #F8F9FA;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-dark);
+            font-family: inherit;
+            font-size: 15px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            background: var(--white);
+            border-color: var(--carera-blue);
+            box-shadow: 0 0 0 3px rgba(26, 106, 255, 0.12);
+        }
+
+        .form-control::placeholder {
+            color: #9EA0A5;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: var(--text-dark);
+            color: var(--white);
+            border: none;
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            border-radius: 8px;
+            margin-top: 6px;
+        }
+
+        .btn-submit:hover {
+            background: var(--carera-blue);
+        }
+
+        /* --- Footer Image Divider --- */
+        .footer-image-divider {
+            width: 100%;
+            height: 350px;
+            background: var(--bg-dark) url('images/car-footer.jpg') center/cover;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--bg-footer);
+            padding: 80px 0 40px;
+            color: var(--white);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .footer-logo-text {
+            font-weight: 800;
+            font-size: 28px;
+            color: var(--white);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .footer-col p {
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .footer-col h4 {
+            color: var(--white);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 15px;
+        }
+
+        .footer-col a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 15px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-col a:hover {
+            color: var(--carera-blue);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+
+        .social-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--white);
+        }
+
+        .social-icon:hover {
+            background: var(--carera-blue);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* --- Media Queries --- */
+        @media (max-width: 992px) {
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dropdown-nav {
+                width: 90%;
+            }
+
+            .service-hero {
+                padding: 60px 0;
+            }
+
+            .service-hero h1 {
+                font-size: 32px;
+                letter-spacing: 2px;
+            }
+
+            .info-section {
+                padding: 50px 0 70px;
+            }
+
+            .contact-section {
+                padding: 60px 0;
+            }
+
+            .contact-wrapper {
+                border-radius: 12px;
+            }
+
+            .contact-info-block {
+                padding: 40px 24px;
+            }
+
+            .contact-info-block h2 {
+                font-size: 28px;
+                margin-bottom: 14px;
+            }
+
+            .contact-info-block p.subtitle {
+                margin-bottom: 30px;
+                font-size: 14px;
+            }
+
+            .form-box {
+                padding: 36px 24px;
+            }
+
+            .form-box h3 {
+                font-size: 22px;
+                margin-bottom: 22px;
+            }
+
+            .form-group {
+                margin-bottom: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .logo-text {
+                font-size: 16px;
+            }
+
+            .contact-phone {
+                font-size: 12px;
+            }
+
+            .menu-toggle-btn svg {
+                width: 28px;
+                height: 28px;
+            }
+
+            .contact-info-block {
+                padding: 32px 18px;
+            }
+
+            .form-box {
+                padding: 28px 18px;
+            }
+
+            .info-text p,
+            .info-text a {
+                font-size: 15px;
+            }
+
+            .icon-box {
+                width: 40px;
+                height: 40px;
+                margin-right: 12px;
+            }
+
+            .icon-box svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .diag-list li {
+                padding: 14px 18px;
+                font-size: 14px;
+            }
+
+            .highlight-box {
+                padding: 24px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER CarEra -->
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo-wrap" aria-label="CarEra">
+                <img src="images/logo.png" alt="Логотип CarEra" class="logo-icon">
+                <span class="logo-text">CarEra</span>
+            </a>
+
+            <!-- Бургер Кнопка -->
+            <div class="nav-wrapper" style="position: relative;">
+                <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Відкрити меню">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+                    </svg>
+                </button>
+
+                <!-- Випадаючий список -->
+                <nav class="dropdown-nav" id="dropdownNav" aria-label="Головне меню">
+                    <ul>
+                        <li><a href="index.html#about">Про нас</a></li>
+                        <li><a href="index.html#catalog">Каталог</a></li>
+                        <li><a href="#contacts">Контакти</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <a href="tel:+380976038938" class="contact-phone" aria-label="Зателефонувати нам">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z" />
+                </svg>
+                +380 97 603 89 38
+            </a>
+        </div>
+    </header>
+
+    <section class="service-hero">
+        <div class="service-hero-overlay"></div>
+        <div class="container reveal">
+            <h1>Малярні роботи</h1>
+        </div>
+    </section>
+
+    <section class="info-section">
+        <div class="container info-content">
+
+            <div class="reveal delay-1">
+                <h2>Малярні роботи для Tesla: повертаємо преміальний вигляд</h2>
+                <p>У процесі експлуатації декоративне і захисне покриття Tesla може втратити презентабельність.
+                    Оновлення лакофарбового шару не тільки поверне автомобілю первісний вигляд, а й захистить кузов від
+                    корозії, механічних пошкоджень і впливу навколишнього середовища.</p>
+            </div>
+
+            <div class="reveal delay-2" style="margin-top: 60px;">
+                <h2>Коли варто проводити малярні роботи для Tesla?</h2>
+                <p>Відновлення лакофарбового покриття може знадобитися у таких випадках:</p>
+                <ul class="diag-list">
+                    <li>після пошкоджень у ДТП;</li>
+                    <li>для усунення подряпин, відколів та потертостей;</li>
+                    <li>при вигоранні фарби на сонці або втраті блиску;</li>
+                    <li>при заміні елементів кузова (для точного підбору відтінку);</li>
+                    <li>при появі вогнищ іржі (з попередньою антикорозійною обробкою);</li>
+                    <li>для виправлення наслідків неякісного попереднього фарбування;</li>
+                    <li>при бажанні змінити колір кузова на унікальний.</li>
+                </ul>
+            </div>
+
+            <div class="reveal delay-3" style="margin-top: 60px;">
+                <h2>Особливості роботи з алюмінієвим кузовом</h2>
+                <p>Кузов Tesla виготовляється з <strong>алюмінієвих сплавів</strong>. Цей матеріал легший за сталь і
+                    стійкіший до корозії, проте він значно складніший в обробці. Порушення технології фарбування
+                    алюмінію може призвести до відшарування покриття та додаткових витрат.</p>
+
+                <p><strong>Ознаки якісного фарбування в сервісі TSK:</strong></p>
+                <ul class="diag-list">
+                    <li><strong>Рівномірне покриття:</strong> відсутність напливів, патьоків та ідеальний збіг відтінку.
+                    </li>
+                    <li><strong>Цілісність шару:</strong> використання преміальних матеріалів запобігає розтріскуванню.
+                    </li>
+                    <li><strong>Захист від корозії:</strong> суворе дотримання правил підготовки поверхні металу.</li>
+                    <li><strong>УФ-захист:</strong> стійкість до сонячних променів та збереження глибини кольору.</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p><strong>Увага!</strong> Фарбування в несертифікованих майстернях може призвести до втрати
+                        заводської гарантії, особливо якщо під час робіт будуть пошкоджені сенсори, камери або датчики
+                        автопілота.</p>
+                </div>
+            </div>
+
+            <div class="reveal delay-1" style="margin-top: 60px;">
+                <h2>Комплексний підхід: від підготовки до полірування</h2>
+                <p>Сервіс TSK проводить повний цикл малярних робіт, враховуючи специфіку Tesla.</p>
+
+                <h3>1. Підготовка до фарбування</h3>
+                <p>Наші фахівці очищають кузов від старої фарби, шліфують поверхню для ідеальної адгезії та наносять
+                    спеціалізований ґрунт для алюмінію. Кожен шар ретельно просушується, щоб уникнути появи
+                    мікродефектів.</p>
+
+                <h3>2. Фарбування у професійній камері</h3>
+                <p>Ми використовуємо герметичні фарбувальні камери, де підтримується стабільна температура та вологість.
+                    Це унеможливлює потрапляння пилу. Ми ретельно ізолюємо електропроводку, батарею, камери та емблеми
+                    перед початком робіт.</p>
+
+                <h3>3. Лакування та полірування</h3>
+                <p>Лак наноситься в кілька шарів, забезпечуючи захист від подряпин та дорожніх реагентів. Фінальне
+                    полірування створює ідеально рівну «дзеркальну» поверхню.</p>
+            </div>
+
+            <div class="reveal delay-2" style="margin-top: 60px;">
+                <h2>Професійне перевтілення вашої Tesla</h2>
+                <p>Ми використовуємо тільки якісні фарби та лаки, що вирізняються довговічністю. Щоб підібрати колір за
+                    кодом виробника або обговорити повний перекрас автомобіля — зверніться до нашого менеджера.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contacts" class="contact-section">
+        <div class="container">
+            <div class="contact-wrapper reveal">
+                <div class="contact-info-block">
+                    <h2>Бажаєте авто<br>без турбот?</h2>
+                    <p class="subtitle">Залиште запит, і наші інженери розрахують точну вартість відновлення або
+                        підберуть ідеальний варіант з аукціонів США.</p>
+
+                    <div class="info-card">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z" />
+                            </svg>
+                        </div>
+                        <div class="info-text">
+                            <h4>Прямий зв'язок</h4>
+                            <a href="tel:+380976038938">+38 097 603 89 38</a>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12,2C8.13,2 5,5.13 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9C19,5.13 15.87,2 12,2M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5Z" />
+                            </svg>
+                        </div>
+                        <div class="info-text">
+                            <h4>Локація</h4>
+                            <p>м. Рівне, Україна</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-box">
+                    <h3>Залишити запит</h3>
+                    <form action="#">
+                        <div class="form-group">
+                            <label>Ваше ім'я</label>
+                            <input type="text" class="form-control" placeholder="Олександр" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Контактний телефон</label>
+                            <input type="tel" class="form-control" placeholder="+380..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Деталі запиту</label>
+                            <textarea class="form-control" rows="3" placeholder="Опишіть ваше питання..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">Відправити запит</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="footer-image-divider reveal" aria-hidden="true"></div>
+
+    <!-- FOOTER CarEra -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <span class="footer-logo-text">CarEra</span>
+                    <p>Професійний імпорт, відновлення та обслуговування електромобілів в Україні. Робимо складні речі
+                        простими.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Навігація</h4>
+                    <ul>
+                        <li><a href="index.html#about">Про компанію</a></li>
+                        <li><a href="index.html#catalog">Послуги</a></li>
+                        <li><a href="#contacts">Контакти</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Допомога</h4>
+                    <ul>
+                        <li><a href="#">Аукціони</a></li>
+                        <li><a href="#">Запчастини</a></li>
+                        <li><a href="#">Ремонт ВВБ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Соцмережі</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-icon" title="Instagram">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M12,7A5,5 0 0,0 7,12A5,5 0 0,0 12,17A5,5 0 0,0 17,12A5,5 0 0,0 12,7M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9M18,5.75A0.75,0.75 0 0,0 17.25,6.5A0.75,0.75 0 0,0 18,7.25A0.75,0.75 0 0,0 18.75,6.5A0.75,0.75 0 0,0 18,5.75Z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon" title="Facebook">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.04c-5.5 0-10 4.49-10 10.02 0 5 3.66 9.15 8.44 9.9v-7h-2.54V12.06h2.54V9.84c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.2 2.23.2v2.45h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.77l-.44 2.88h-2.33v7c4.78-.75 8.44-4.9 8.44-9.9 0-5.53-4.5-10.02-10-10.02z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © 2026 CarEra UKRAINE. Всі права захищені.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Анімації появи при прокрутці
+            const reveals = document.querySelectorAll(".reveal");
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            });
+
+            reveals.forEach((reveal) => {
+                observer.observe(reveal);
+            });
+
+            // Бургер-меню логіка
+            const menuBtn = document.getElementById("menuToggleBtn");
+            const dropdownNav = document.getElementById("dropdownNav");
+
+            menuBtn.addEventListener("click", function (e) {
+                e.stopPropagation();
+                dropdownNav.classList.toggle("active");
+            });
+
+            document.addEventListener("click", function (event) {
+                if (!menuBtn.contains(event.target) && !dropdownNav.contains(event.target)) {
+                    dropdownNav.classList.remove("active");
+                }
+            });
+
+            const navLinks = dropdownNav.querySelectorAll("a");
+            navLinks.forEach(link => {
+                link.addEventListener("click", () => {
+                    dropdownNav.classList.remove("active");
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

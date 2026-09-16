@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carera | Професійний Сервіс та Відновлення</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --tesla-red: #E82127;
+            --dark-red: #e32128;
+            --Carera-blue: #1a6aff;
+            --Carera-blue-hover: #0050e6;
+            --accent-yellow: #dca73a;
+            --white: #FFFFFF;
+            --bg-light: #f8f9fa;
+            --bg-dark: #111111;
+            --bg-footer: #0f1115;
+            --text-dark: #2e2e2e;
+            --text-gray: #7a7a7a;
+            --text-muted: #888888;
+            --border-color: #E2E3E3;
+            --black: #000000;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 {
+            transition-delay: 0.05s;
+        }
+
+        .delay-2 {
+            transition-delay: 0.1s;
+        }
+
+        .delay-3 {
+            transition-delay: 0.15s;
+        }
+
+        .delay-4 {
+            transition-delay: 0.2s;
+        }
+
+        .delay-5 {
+            transition-delay: 0.25s;
+        }
+
+        .delay-6 {
+            transition-delay: 0.3s;
+        }
+
+        /* Header & Dropdown Menu */
+        header {
+            background-color: var(--white);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 24px;
+            height: 24px;
+            display: block;
+        }
+
+        .logo-text {
+            font-weight: 900;
+            font-size: 24px;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        /* Бургер кнопка */
+        .menu-toggle-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            transition: color 0.2s ease;
+        }
+
+        .menu-toggle-btn:hover {
+            color: var(--Carera-blue);
+        }
+
+        .menu-toggle-btn svg {
+            width: 32px;
+            height: 32px;
+            fill: currentColor;
+        }
+
+        /* Випадаюче меню */
+        .dropdown-nav {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(15px);
+            background: var(--white);
+            padding: 10px 40px;
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            z-index: 999;
+        }
+
+        .dropdown-nav.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(25px);
+        }
+
+        .dropdown-nav ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .dropdown-nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .dropdown-nav a:hover {
+            color: var(--Carera-blue);
+        }
+
+        .contact-phone {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 700;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .contact-phone svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+            transition: fill 0.2s ease;
+        }
+
+        .contact-phone:hover {
+            color: var(--Carera-blue);
+        }
+
+        /* Hero Section */
+        .hero6 {
+            position: relative;
+            min-height: 85vh;
+            background: var(--bg-dark) url('images/bg.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            color: var(--white);
+        }
+
+        .hero6-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 100%);
+        }
+
+        .hero6-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .sizejumbo-text {
+            font-size: clamp(40px, 8vw, 80px);
+            font-weight: 800;
+            margin: 0 0 20px;
+            line-height: 1.1;
+            color: var(--white);
+            text-transform: uppercase;
+        }
+
+        .paragraph-70 {
+            font-size: clamp(16px, 2.5vw, 22px);
+            font-weight: 500;
+            margin: 0 0 40px;
+            color: #e0e0e0;
+            max-width: 700px;
+            line-height: 1.5;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .button-3 {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 40px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+            border-radius: 4px;
+            border: none;
+        }
+
+        .button-primary {
+            background-color: #3a79b9;
+            color: var(--white);
+        }
+
+        .button-primary:hover {
+            background-color: var(--Carera-blue-hover);
+            transform: translateY(-2px);
+        }
+
+        .button-outline {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .button-outline:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-header h2 {
+            font-weight: 1200;
+            font-size: 36px;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        /* Why Choose Us & Background Circles */
+        .why-us {
+            padding: 100px 0;
+            background-color: #fff6f6;
+            position: relative;
+            overflow: hidden;
+            /* Щоб кружечки не вилазили за межі блоку */
+        }
+
+        /* Декоративні розкидані кола */
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            background: #4787b2;
+            top: -100px;
+            left: -100px;
+        }
+
+        .shape-2 {
+            width: 250px;
+            height: 250px;
+            background: #3a79b9;
+            bottom: 50px;
+            right: -50px;
+        }
+
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            background: #2c6da5;
+            top: 40%;
+            left: 45%;
+            transform: translate(-50%, -50%);
+        }
+
+        .shape-4 {
+            width: 200px;
+            height: 200px;
+            background: #e3edff;
+            bottom: -50px;
+            left: 15%;
+        }
+
+        .why-us .container {
+            position: relative;
+            z-index: 2;
+            /* Контент поверх декоративних тіней */
+        }
+
+        .why-us-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 50px;
+        }
+
+        .why-us-title h2 {
+            font-size: clamp(36px, 6vw, 54px);
+            font-weight: 800;
+            line-height: 1.05;
+            margin-bottom: 12px;
+            color: var(--text-dark);
+            letter-spacing: -1px;
+            text-transform: none;
+        }
+
+        .why-us-title .subtitle {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--Carera-blue);
+            display: block;
+        }
+
+        .btn-primary-header {
+            background-color: var(--Carera-blue);
+            color: var(--white);
+            padding: 18px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .btn-primary-header:hover {
+            background-color: var(--Carera-blue-hover);
+            transform: translateY(-2px);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .benefit-card {
+            background-color: #2e2e2e;
+            border-radius: 16px;
+            padding: 32px 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .benefit-card:hover {
+            background-color: #242427;
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .benefit-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.3;
+            margin: 0;
+            max-width: 75%;
+        }
+
+        .icon-circle {
+            width: 44px;
+            height: 44px;
+            background-color: var(--Carera-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .icon-circle svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--white);
+        }
+
+        .benefit-card p {
+            font-size: 14px;
+            color: #fefefe;
+            line-height: 1.6;
+            margin: 0;
+            opacity: 0.8;
+        }
+
+        /* Steps Section */
+        .steps-section {
+            padding: 80px 0;
+            background: var(--white);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            position: relative;
+        }
+
+        .steps-grid::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: var(--border-color);
+        }
+
+        .step-item {
+            text-align: left;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .step-number {
+            color: var(--Carera-blue);
+            font-weight: 1000;
+            font-size: 24px;
+        }
+
+        .step-title {
+            color: var(--text-dark);
+            font-weight: 800;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .step-desc {
+            color: var(--text-gray);
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        /* Catalog Grid */
+        .catalog {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .catalog-item {
+            position: relative;
+            height: 350px;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            text-decoration: none;
+            color: var(--white);
+            background: var(--black);
+            border-radius: 8px;
+        }
+
+        .catalog-item img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+            transition: transform 0.5s ease, opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .catalog-item span {
+            position: relative;
+            z-index: 3;
+            padding: 30px 25px;
+            font-weight: 700;
+            font-size: 22px;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
+        }
+
+        .catalog-item:hover img {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        /* --- Contact Section --- */
+        .contact-section {
+            padding: 100px 0;
+            background: var(--bg-light);
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            background: var(--white);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            min-height: 560px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-info-block {
+            background: #2c6da5;
+            color: var(--white);
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .contact-info-block h2 {
+            font-size: clamp(28px, 4vw, 38px);
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .contact-info-block p.subtitle {
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            opacity: 0.92;
+        }
+
+        .info-card {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .info-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .icon-box {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.16);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+
+        .icon-box svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--white);
+        }
+
+        .info-text h4 {
+            margin: 0 0 3px 0;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            opacity: 0.75;
+            font-weight: 600;
+        }
+
+        .info-text p,
+        .info-text a {
+            margin: 0;
+            font-size: 17px;
+            font-weight: 500;
+            color: var(--white);
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .info-text a:hover {
+            opacity: 0.85;
+            text-decoration: underline;
+        }
+
+        .form-box {
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--white);
+        }
+
+        .form-box h3 {
+            font-size: 26px;
+            margin-bottom: 30px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            color: var(--text-dark);
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-gray);
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 13px 16px;
+            background: #F8F9FA;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-dark);
+            font-family: inherit;
+            font-size: 15px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            background: var(--white);
+            border-color: var(--Carera-blue);
+            box-shadow: 0 0 0 3px rgba(232, 33, 39, 0.12);
+        }
+
+        .form-control::placeholder {
+            color: #9EA0A5;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: var(--text-dark);
+            color: var(--white);
+            border: none;
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            border-radius: 8px;
+            margin-top: 6px;
+        }
+
+        .btn-submit:hover {
+            background: var(--Carera-blue);
+        }
+
+        /* Footer */
+        .footer-image-divider {
+            width: 100%;
+            height: 350px;
+            background: var(--bg-dark) url('images/car-footer.jpg') center/cover;
+        }
+
+        footer {
+            background: var(--bg-footer);
+            padding: 80px 0 40px;
+            color: var(--white);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .footer-logo-text {
+            font-weight: 800;
+            font-size: 28px;
+            color: var(--white);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .footer-col p {
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .footer-col h4 {
+            color: var(--white);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 15px;
+        }
+
+        .footer-col a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 15px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* Media Queries */
+        @media (max-width: 992px) {
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-grid,
+            .steps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dropdown-nav {
+                width: 90%;
+            }
+
+            .hero6 {
+                min-height: 70vh;
+            }
+
+            .sizejumbo-text {
+                font-size: 36px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .button-3 {
+                width: 100%;
+                text-align: center;
+            }
+
+            .why-us-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 24px;
+            }
+
+            .btn-primary-header {
+                width: 100%;
+                text-align: center;
+            }
+
+            /* Responsive contact styles */
+            .contact-section {
+                padding: 60px 0;
+            }
+
+            .contact-wrapper {
+                border-radius: 12px;
+            }
+
+            .contact-info-block {
+                padding: 40px 24px;
+            }
+
+            .contact-info-block h2 {
+                font-size: 28px;
+                margin-bottom: 14px;
+            }
+
+            .contact-info-block p.subtitle {
+                margin-bottom: 30px;
+                font-size: 14px;
+            }
+
+            .form-box {
+                padding: 36px 24px;
+            }
+
+            .form-box h3 {
+                font-size: 22px;
+                margin-bottom: 22px;
+            }
+
+            .form-group {
+                margin-bottom: 18px;
+            }
+
+            .benefits-grid,
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 16px;
+            }
+
+            .contact-phone {
+                font-size: 12px;
+            }
+
+            .menu-toggle-btn svg {
+                width: 28px;
+                height: 28px;
+            }
+
+            .contact-info-block {
+                padding: 32px 18px;
+            }
+
+            .form-box {
+                padding: 28px 18px;
+            }
+
+            .info-text p,
+            .info-text a {
+                font-size: 15px;
+            }
+
+            .icon-box {
+                width: 40px;
+                height: 40px;
+                margin-right: 12px;
+            }
+
+            .icon-box svg {
+                width: 18px;
+                height: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="/" class="logo-wrap" aria-label="Carera">
+                <img src="images/logo.png" alt="Логотип Carera" class="logo-icon">
+                <span class="logo-text">Carera</span>
+            </a>
+
+            <!-- Бургер Кнопка Замість Класичного Меню -->
+            <div class="nav-wrapper">
+                <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Відкрити меню">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+                    </svg>
+                </button>
+
+                <!-- Випадаючий список -->
+                <nav class="dropdown-nav" id="dropdownNav" aria-label="Головне меню">
+                    <ul>
+                        <li><a href="#about">Про нас</a></li>
+                        <li><a href="#catalog">Каталог</a></li>
+                        <li><a href="#contacts">Контакти</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <a href="tel:+380976038938" class="contact-phone" aria-label="Зателефонувати нам">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z" />
+                </svg>
+                +380 97 603 89 38
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero6" aria-labelledby="hero-title">
+            <div class="hero6-overlay"></div>
+            <div class="container hero6-content reveal">
+                <h1 id="hero-title" class="sizejumbo-text">Carera</h1>
+                <p class="paragraph-70"><strong>Імпорт авто зі США під ключ та повний комплекс професійного
+                        обслуговування</strong></p>
+                <div class="hero-buttons">
+                    <a href="#catalog" class="button-3 button-primary">Наші послуги</a>
+                    <a href="#contacts" class="button-3 button-outline">Залишити заявку</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секція "Про нас" з фоновими декоративними колами -->
+        <section id="about" class="why-us">
+            <div class="bg-shape shape-1"></div>
+            <div class="bg-shape shape-2"></div>
+            <div class="bg-shape shape-3"></div>
+            <div class="bg-shape shape-4"></div>
+
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>Чому обирають нас</h2>
+                </div>
+                <div class="benefits-grid">
+                    <article class="benefit-card reveal delay-1">
+                        <h3>Кузовна майстерня</h3>
+                        <p>Відновлення геометрії на стапелі та професійні рихтувальні роботи будь-якої складності.</p>
+                    </article>
+                    <article class="benefit-card reveal delay-2">
+                        <h3>Малярний цех</h3>
+                        <p>Фарбування в професійній камері з комп'ютерним підбором кольору для ідеального результату.
+                        </p>
+                    </article>
+                    <article class="benefit-card reveal delay-3">
+                        <h3>Прозорий бюджет</h3>
+                        <p>Чіткий прорахунок кошторису до початку робіт без прихованих платежів.</p>
+                    </article>
+                    <article class="benefit-card reveal delay-4">
+                        <h3>Повний супровід</h3>
+                        <p>Фото та відеозвіти на кожному етапі відновлення вашого автомобіля.</p>
+                    </article>
+                    <article class="benefit-card reveal delay-5">
+                        <h3>Юридична чистота</h3>
+                        <p>Офіційний розрахунок на рахунок ТОВ. Працюємо готівково та безготівково.</p>
+                    </article>
+                    <article class="benefit-card reveal delay-6">
+                        <h3>Запчастини</h3>
+                        <p>Власний склад та швидка доставка оригінальних запчастин з США та Європи.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="steps-section">
+            <div class="container">
+                <div class="steps-grid reveal">
+                    <div class="step-item">
+                        <div class="step-header">
+                            <span class="step-number">1</span>
+                            <span class="step-title">Крок</span>
+                        </div>
+                        <p class="step-desc">Ви залишаєте запит на послугу або запчастину</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-header">
+                            <span class="step-number">2</span>
+                            <span class="step-title">Крок</span>
+                        </div>
+                        <p class="step-desc">Ми проводимо консультацію та узгоджуємо всі деталі і вартість</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-header">
+                            <span class="step-number">3</span>
+                            <span class="step-title">Крок</span>
+                        </div>
+                        <p class="step-desc">Виконуємо ремонт, знаходимо деталь на розборці або купуємо авто за кордоном
+                        </p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-header">
+                            <span class="step-number">4</span>
+                            <span class="step-title">Крок</span>
+                        </div>
+                        <p class="step-desc">Ви отримуєте готовий результат з гарантією якості.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="catalog" class="catalog">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>Послуги сервісу</h2>
+                </div>
+                <div class="catalog-grid">
+                    <a href="kuzovniyremont.html" class="catalog-item reveal delay-1">
+                        <img src="images/kuzov.png" alt="Кузовне відновлення автомобілів">
+                        <span>Кузовне відновлення</span>
+                    </a>
+                    <a href="techobslug.html" class="catalog-item reveal delay-2">
+                        <img src="images/technichne.png" alt="Технічне обслуговування">
+                        <span>Технічне обслуговування</span>
+                    </a>
+                    <a href="electroroboti.html" class="catalog-item reveal delay-3">
+                        <img src="images/electro.png" alt="Ремонт високовольтних батарей та електроніки">
+                        <span>Ремонт ВВБ та електроніки</span>
+                    </a>
+                    <a href="malyarni.html" class="catalog-item reveal delay-4">
+                        <img src="images/malyarka.png" alt="Малярні роботи та фарбування">
+                        <span>Малярні роботи</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacts" class="contact-section">
+            <div class="container">
+                <div class="contact-wrapper reveal">
+                    <div class="contact-info-block">
+                        <h2>Бажаєте авто<br>без турбот?</h2>
+                        <p class="subtitle">Залиште запит, і наші інженери розрахують точну вартість відновлення або
+                            підберуть ідеальний варіант з аукціонів США.</p>
+
+                        <div class="info-card">
+                            <div class="icon-box">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z" />
+                                </svg>
+                            </div>
+                            <div class="info-text">
+                                <h4>Прямий зв'язок</h4>
+                                <a href="tel:+380976038938">+38 097 603 89 38</a>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <div class="icon-box">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12,2C8.13,2 5,5.13 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9C19,5.13 15.87,2 12,2M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5Z" />
+                                </svg>
+                            </div>
+                            <div class="info-text">
+                                <h4>Локація</h4>
+                                <p>м. Рівне, Україна</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-box">
+                        <h3>Залишити запит</h3>
+                        <form action="#">
+                            <div class="form-group">
+                                <label>Ваше ім'я</label>
+                                <input type="text" class="form-control" placeholder="Олександр" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Контактний телефон</label>
+                                <input type="tel" class="form-control" placeholder="+380..." required>
+                            </div>
+                            <div class="form-group">
+                                <label>Деталі запиту</label>
+                                <textarea class="form-control" rows="3"
+                                    placeholder="Опишіть ваше питання..."></textarea>
+                            </div>
+                            <button type="submit" class="btn-submit">Відправити запит</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="footer-image-divider reveal" aria-hidden="true"></div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <span class="footer-logo-text">Carera</span>
+                    <p>Професійний імпорт, відновлення та обслуговування електромобілів в Україні. Робимо складні речі
+                        простими.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Навігація</h4>
+                    <ul>
+                        <li><a href="#about">Про компанію</a></li>
+                        <li><a href="#catalog">Послуги</a></li>
+                        <li><a href="#contacts">Контакти</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Допомога</h4>
+                    <ul>
+                        <li><a href="#">Аукціони</a></li>
+                        <li><a href="#">Запчастини</a></li>
+                        <li><a href="#">Ремонт ВВБ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Соцмережі</h4>
+                    <ul>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Facebook</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © 2026 Carera UKRAINE. Всі права захищені.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const reveals = document.querySelectorAll(".reveal");
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            });
+
+            reveals.forEach((reveal) => {
+                observer.observe(reveal);
+            });
+
+            const menuBtn = document.getElementById("menuToggleBtn");
+            const dropdownNav = document.getElementById("dropdownNav");
+
+            menuBtn.addEventListener("click", function (e) {
+                e.stopPropagation();
+                dropdownNav.classList.toggle("active");
+            });
+
+            document.addEventListener("click", function (event) {
+                if (!menuBtn.contains(event.target) && !dropdownNav.contains(event.target)) {
+                    dropdownNav.classList.remove("active");
+                }
+            });
+
+            const navLinks = dropdownNav.querySelectorAll("a");
+            navLinks.forEach(link => {
+                link.addEventListener("click", () => {
+                    dropdownNav.classList.remove("active");
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
